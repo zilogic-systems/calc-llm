@@ -138,4 +138,4 @@ Feel free to fork the repository and submit pull requests for:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the Apache License, Version 2.0 (the "License");
