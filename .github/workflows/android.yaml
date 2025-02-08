@@ -1,4 +1,4 @@
-name: Generated APK
+name: Generate and Upload APK
 env:
   # The name of the main module repository
   main_project_module: app
@@ -8,10 +8,7 @@ env:
 on:
   push:
     branches:
-      - 'release/**'
-  pull_request:
-    branches:
-      - 'release/**'
+      - 'main'
   workflow_dispatch:
 
 jobs:
