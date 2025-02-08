@@ -1,6 +1,7 @@
 package com.zilogic.z_calc
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -181,6 +182,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun processOperator(newOperator: String, state: CalculatorState): CalculatorState {
         // Bug 1: Consecutive operations limit
+        Log.d("Khaleel", "consecutiveOperations -- ${state.consecutiveOperations}")
         if (state.consecutiveOperations >= maxConsecutiveOperations) {
             throw RuntimeException("Too many consecutive operations!")
         }
@@ -299,7 +301,7 @@ class MainActivity : AppCompatActivity() {
                 )
             } catch (e: NumberFormatException) {
                 // Bug 6: Silent failure on invalid number format
-                state
+                throw RuntimeException("Number Format Exception")
             }
         } else state
     }
