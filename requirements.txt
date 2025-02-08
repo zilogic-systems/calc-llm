@@ -1,0 +1,4 @@
+phidata==2.7.10
+ollama==0.4.7
+PyGithub==2.5.0
+robotframework_parrot_adbcontroller==1.0.1
