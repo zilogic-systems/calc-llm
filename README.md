@@ -128,13 +128,14 @@ app/
     - User notifications
     - Recovery from errors
 
-## Contributing
+## Testing Resources
 
-Feel free to fork the repository and submit pull requests for:
-- Additional test cases
-- Bug fixes (that aren't part of the intentional bug list)
-- UI improvements
-- Documentation updates
+For UI automation testing purposes, refer to [resource-id.md](resource-id.md) which contains:
+
+- Complete list of all resource IDs
+- Layout hierarchy
+- Content descriptions
+- Testing examples for Appium
 
 ## License
 
