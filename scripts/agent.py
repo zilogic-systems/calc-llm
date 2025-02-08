@@ -16,15 +16,15 @@ class GitHubTool(Toolkit):
         self._register_tools()
 
     def _register_tools(self):
-        # self.register(self.adc_controller.adb_select_device)
-        # self.register(self.adc_controller.adb_home)
-        # self.register(self.adc_controller.adb_take_screenshot)
-        # self.register(self.adc_controller.adb_pull_xml_screen)
-        # self.register(self.adc_controller.adb_scroll_down)
-        # self.register(self.adc_controller.adb_shell)
-        # self.register(self.adc_controller.adb_open_an_application)
-        # self.register(self.adc_controller.adb_close_current_application)
-        # self.register(self.adc_controller.get_current_application_package_name)
+        self.register(self.adc_controller.adb_select_device)
+        self.register(self.adc_controller.adb_home)
+        self.register(self.adc_controller.adb_take_screenshot)
+        self.register(self.adc_controller.adb_pull_xml_screen)
+        self.register(self.adc_controller.adb_scroll_down)
+        self.register(self.adc_controller.adb_shell)
+        self.register(self.adc_controller.adb_open_an_application)
+        self.register(self.adc_controller.adb_close_current_application)
+        self.register(self.adc_controller.get_current_application_package_name)
         self.register(self.github_repo.list_pull_requests)
         self.register(self.github_repo.list_issues)
         self.register(self.github_repo.get_pull_request)
@@ -36,9 +36,9 @@ class GitHubTool(Toolkit):
 if __name__ == "__main__":
     agent = Agent(
         # model=Ollama(id="llama3.1"),
-        model=Ollama(id="deepseek-r1:32b", host="172.236.140.158:8080"),
+        model=Ollama(id="llama3.1:8b", host="172.236.140.158:11434"),
         instructions=[
-            "Use your tools to answer questions about the repo: Homebrew/brew",
+            "Use your tools to answer questions about the repo: zilogic-systems/calc-llm",
             "Do not create any issues or pull requests unless explicitly asked to do so",
         ],
         tools=[GitHubTool()],
