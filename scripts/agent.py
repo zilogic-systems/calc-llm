@@ -45,20 +45,30 @@ class CalculatorTool(Toolkit):
         if coord is None:
             raise ValueError("button not found")
         self._adb_controller.adb_tap(coord)
-        time.sleep(1)
         return f"Clicked {name}"
 
     def read_display(self):
         """Use this to read the display of the calculator."""
         self._adb_controller.adb_pull_xml_screen("/tmp/out.xml")
         text = self._get_ui_text("/tmp/out.xml", "com.zilogic.z_calc:id/calculator_display")
-        print(text)
+        if text is None:
+            text = ""
         return text
+
+    def check_closed(self) -> str:
+        """Use this to check if the calculator has closed or crashsed."""
+
+        name = self._adb_controller.get_current_application_package_name()
+        if name != "com.zilogic.z_calc":
+            return "Calculator is Closed"
+        else:
+            return "Calculator is Open"
 
     def _register_tools(self):
         self.register(self.open_calculator)
         self.register(self.click_button)
         self.register(self.read_display)
+        self.register(self.check_closed)
 
     def _get_ui_text(self, xml_dump, resource_id=None):
         """
