@@ -3,11 +3,13 @@ import json
 import xml.etree.ElementTree as ET
 import re
 import time
-from phi.agent import Agent
-from phi.tools import Toolkit
-from phi.model.ollama import Ollama
-from phi.model.openai import OpenAIChat
-from phi.tools.github import GithubTools
+from agno.agent import Agent
+from agno.tools import Toolkit
+from agno.models.ollama import Ollama
+from agno.models.groq import Groq
+from agno.models.anthropic import Claude
+from agno.models.openai import OpenAIChat
+from agno.tools.github import GithubTools
 from ADBController import ADBController
 
 class CalculatorTool(Toolkit):
@@ -124,37 +126,20 @@ class GitHubTool(Toolkit):
 
 
 if __name__ == "__main__":
+    env_vars = ["GITHUB_ACCESS_TOKEN", "OPENAI_API_KEY", "ANDROID_DEVICE"]
+
+    for var in env_vars:
+        if os.getenv("GITHUB_ACCESS_TOKEN") is None:
+            error("GITHUB_ACCESS_TOKEN is not set")
+
     model = OpenAIChat(id="gpt-4o")
+    # model = Claude(id="claude-3-5-haiku-20241022")
 
     tester = Agent(
         name="Tester",
         model=model,
         role="Executes tests on the calculator app.",
-        instructions=[
-            "Use GitHub_Tool to answer questions about the GitHub repo: zilogic-systems/calc-llm",
-            "Use Calculator_Tool to access and control UI of the Calculator",
-            "To perform 1 + 2 in the calculator, "
-            "open the calculator, "
-            "click 'C' to clear the calculator, "
-            "click 1, "
-            "click +, "
-            "click 2, "
-            "click '=' ",
-            "To perform 100 + 200 in the calculator, "
-            "open the calculator, "
-            "'C' to clear the calculator, "
-            "click 1, click 0, click 0, "
-            "click +, "
-            "click 2, click 0, click 0, "
-            "click '=' ",
-            "To perform 1 / 2 in the calculator, "
-            "open the calculator, "
-            "click 'C' to clear the calculator, "
-            "click 1, "
-            "click ÷, "
-            "click 2, "
-            "click '=' "
-        ],
+        instructions=open("instructions.txt").readlines(),
         tools=[GitHubTool(), CalculatorTool()],
         show_tool_calls=True,
         num_history_responses=5,
